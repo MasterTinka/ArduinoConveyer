@@ -4,10 +4,12 @@
 #include <GyverTimer.h>
 
 GTimer Timer15Sec(MS), Timer30Sec(MS);
-digitalPinClassInput accidentOnConveyer(22), startConveyers(23), stopConveyers(25);
+digitalPinClassInput accidentOnConveyer(24), accidentGone(22), startConveyers(23), stopConveyers(25);
 digitalPinClassOutput conveyer170(51), conveyer36(52), bunker(53), buzzer(49), accident(50);
 
 digitalPinClassOutput* conveyers[3] = {&conveyer170, &conveyer36, &bunker};
+
+bool accidentState = false;
 
 String message;
 
@@ -61,10 +63,18 @@ bool buzzerAction()
           message += recieved_byte;
         }
       }
-      if(accidentOnConveyer.read_data() == false || message == "ACCIDENT")
+      if(accidentOnConveyer.read_data() || message == "ACCIDENT")
       {
+        accidentState = true;
         Serial.print("ACCIDENT STARTED");
         accidentReset();
+        return false;
+      }
+      else if(stopConveyers.read_data() || message == "STOP")
+      {
+        Serial.print("BUZZER GONE");
+        Serial.print("CONVEYERS GONEs");
+        resetConveyers();
         return false;
       }
     }
@@ -94,10 +104,18 @@ bool startConveyersFunction()
           message += recieved_byte;
         }
       }
-      if(accidentOnConveyer.read_data() == false || message == "ACCIDENT")
+      if(accidentOnConveyer.read_data() || message == "ACCIDENT")
       {
+        accidentState = true;
         Serial.print("ACCIDENT STARTED");
         accidentReset();
+        return false;
+      }
+      else if(stopConveyers.read_data() || message == "STOP")
+      {
+        Serial.print("CONVEYERS_START GONE");
+        Serial.print("CONVEYERS GONE");
+        resetConveyers();
         return false;
       }
     }
@@ -115,7 +133,7 @@ void loop() {
     message += recieved_byte;
   }
 
-  if((accidentOnConveyer.read_data() && startConveyers.read_data()) || (message == "START"))
+  if(accidentState == false && (startConveyers.read_data()) || (message == "START"))
   {
     message = "";
     Serial.print("CONVEYERS STARTED");
@@ -149,15 +167,17 @@ void loop() {
       else if(accidentOnConveyer.read_data() == false || message == "ACCIDENT") 
       {
         Serial.print("ACCIDENT STARTED");
+        accidentState = true;
         message = "";
         accidentReset();
         break;
       }
     }
   }
-  else if(accidentOnConveyer.read_data() && accident.get_status() == false)
+  else if((accidentGone.read_data() || message == "ACCIDENT_STOP") && accidentState)
   {
     Serial.print("ACCIDENT GONE");
+    accidentState = false;
     accident.set_HIGH();
   }
 }
