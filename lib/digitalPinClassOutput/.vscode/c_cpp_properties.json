@@ -1,0 +1,57 @@
+{
+    "configurations": [
+        {
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/leonid/Программирование/SmartHouseKTSK/Arduino/libraries/digitalPinClassOutput/include",
+                "/home/leonid/Программирование/SmartHouseKTSK/Arduino/libraries/digitalPinClassOutput/src",
+                "/home/leonid/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/home/leonid/.platformio/packages/framework-arduino-avr/variants/standard",
+                "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "/home/leonid/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/leonid/Программирование/SmartHouseKTSK/Arduino/libraries/digitalPinClassOutput/include",
+                    "/home/leonid/Программирование/SmartHouseKTSK/Arduino/libraries/digitalPinClassOutput/src",
+                    "/home/leonid/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/home/leonid/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/home/leonid/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "/home/leonid/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=50003",
+                "ARDUINO_AVR_UNO",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/home/leonid/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
