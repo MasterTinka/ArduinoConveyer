@@ -25,7 +25,7 @@ void setup() {
   Timer15Sec.setInterval(15000);
   Timer15Sec.stop();
 
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 
@@ -66,6 +66,8 @@ bool buzzerAction()
       if(accidentOnConveyer.read_data() || message == "ACCIDENT")
       {
         accidentState = true;
+        Serial.print("BUZZER GONE");
+        Serial.print("CONVEYERS GONE");
         Serial.print("ACCIDENT STARTED");
         accidentReset();
         return false;
@@ -73,7 +75,7 @@ bool buzzerAction()
       else if(stopConveyers.read_data() || message == "STOP")
       {
         Serial.print("BUZZER GONE");
-        Serial.print("CONVEYERS GONEs");
+        Serial.print("CONVEYERS GONE");
         resetConveyers();
         return false;
       }
@@ -107,7 +109,9 @@ bool startConveyersFunction()
       if(accidentOnConveyer.read_data() || message == "ACCIDENT")
       {
         accidentState = true;
-        Serial.print("ACCIDENT STARTED");
+        Serial.print("CONVEYERS_START GONE");        
+        Serial.print("CONVEYERS GONE");
+        Serial.print("ACCIDENT STARTED");        
         accidentReset();
         return false;
       }
@@ -133,7 +137,7 @@ void loop() {
     message += recieved_byte;
   }
 
-  if(accidentState == false && (startConveyers.read_data()) || (message == "START"))
+  if((accidentState == false) && ( startConveyers.read_data() || (message == "START") ))
   {
     message = "";
     Serial.print("CONVEYERS STARTED");
@@ -164,7 +168,7 @@ void loop() {
         resetConveyers();
         break;
       }
-      else if(accidentOnConveyer.read_data() == false || message == "ACCIDENT") 
+      else if(accidentOnConveyer.read_data() || message == "ACCIDENT") 
       {
         Serial.print("ACCIDENT STARTED");
         accidentState = true;
@@ -174,10 +178,11 @@ void loop() {
       }
     }
   }
-  else if((accidentGone.read_data() || message == "ACCIDENT_STOP") && accidentState)
+  else if((accidentGone.read_data() || message == "STOP_ACCIDENT") && accidentState)
   {
     Serial.print("ACCIDENT GONE");
     accidentState = false;
+    message = "";
     accident.set_HIGH();
   }
 }
