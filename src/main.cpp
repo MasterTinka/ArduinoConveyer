@@ -118,7 +118,7 @@ void loop() {
   if((accidentOnConveyer.read_data() && startConveyers.read_data()) || (message == "START"))
   {
     message = "";
-    Serial.println("CONVEYERS STARTED");
+    Serial.print("CONVEYERS STARTED");
     if(buzzerAction() == false)
     {
       message = "";
